@@ -63,11 +63,25 @@ python log_analyzer.py sample.log
 
 [Suspicious request patterns]
 ⚠ Line 9 | 203.0.113.7 | Directory traversal attempt
-⚠ Line 10 | 203.0.113.7 | Possible XSS attempt
+⚠ Line 10 | 203.0.113.7 | Possible XSS attempt 
 
-Save with Ctrl+S.
+## Lab: Vulnerability Scanning with Nmap
 
-2. Also update the Tech Stack line to mention regex:
+**Target:** scanme.nmap.org (authorized Nmap testing server)
+**Tool:** Nmap 7.99 with vulners NSE script
+
+**Findings:**
+- OpenSSH 6.6.1p1 — outdated version, multiple known CVEs including 
+  CVE-2016-6515 (DoS, CVSS 7.8)
+- Apache httpd 2.4.7 — outdated version, multiple known CVEs including 
+  CVE-2014-0226 (race condition, CVSS 6.8)
+- Possible CSRF vulnerability detected on search forms (no token found)
+- Directory listing enabled on /images/
+
+**Takeaway:** Both services are running versions from ~2014, which is a common 
+real-world finding in VAPT engagements — demonstrates the importance of patch 
+management. The CSRF finding directly informed my own Secure Cloud Storage 
+project, where I implemented Flask-WTF CSRF tokens on all forms.
 
 markdown
 ## Tech Stack
