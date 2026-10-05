@@ -37,9 +37,41 @@ Scan complete in 3.10 seconds
 Open ports found: 2
 Ports: 22, 80
 
+### Log Analyzer
+Scans log files for signs of attack: brute-force login attempts, high-volume requests from one IP, and common attack signatures (SQL injection, XSS, directory traversal, WordPress scanning).
 
+**Usage:**
+cd log_analyzer
+python log_analyzer.py <logfile>
+
+
+**Example:**
+
+python log_analyzer.py sample.log
+
+
+**Features:**
+- Flags IPs with repeated failed logins (configurable threshold, default 5+)
+- Flags IPs with unusually high request volume (default 100+)
+- Detects common attack patterns: SQL injection, XSS, directory traversal, WordPress scanning
+- Works with Apache/Nginx-style access logs and Linux auth logs
+
+**Sample output:**
+
+[Repeated failed logins] (threshold: 5+)
+⚠ 10.0.0.5 — 6 failed attempts (possible brute force)
+
+[Suspicious request patterns]
+⚠ Line 9 | 203.0.113.7 | Directory traversal attempt
+⚠ Line 10 | 203.0.113.7 | Possible XSS attempt
+
+Save with Ctrl+S.
+
+2. Also update the Tech Stack line to mention regex:
+
+markdown
 ## Tech Stack
-Python, socket, concurrent.futures (threading), argparse, colorama
+Python, socket, concurrent.futures (threading), re (regex), argparse, colorama
 
 ## Author
 Sneha Yelpulwar — B.Tech CSE, cybersecurity enthusiast
